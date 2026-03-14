@@ -7,6 +7,8 @@
 #include <span>
 #include <system_error>
 
+namespace tss {
+
 struct ip_addr {
   in_addr addr;
   uint16_t port;
@@ -41,5 +43,7 @@ class listen_sock {
     listen_sock& operator=(listen_sock&& other);
 
     static std::expected<listen_sock, std::error_code> create(uint16_t port);
-    std::expected<std::unique_ptr<connection_sock>, std::error_code> accept();
+    std::expected<std::unique_ptr<connection_sock>, std::error_code> accept(uint16_t port);
 };
+
+}

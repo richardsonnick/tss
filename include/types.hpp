@@ -17,8 +17,9 @@ struct ip_addr {
 class connection_sock {
   private:
     int fd;
+    connection_sock(int fd) : fd(fd){};
+
   public:
-    connection_sock() = delete;
     connection_sock(const connection_sock&) = delete;
     connection_sock& operator=(const connection_sock&) = delete;
     ~connection_sock();

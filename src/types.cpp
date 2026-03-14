@@ -2,10 +2,17 @@
 #include <expected>
 #include <stdexcept>
 #include <system_error>
+#include <print>
 
 namespace tss {
 
+connection_sock::~connection_sock() {
+  this->fd = -1;
+  return;
+}
+
 std::expected<connection_sock, std::error_code> connection_sock::create(ip_addr addr) {
+  printf("Creating connection_sock\n");
   return std::unexpected(std::make_error_code(std::errc::owner_dead));
 }
 

@@ -7,6 +7,11 @@
 namespace tss {
 
 connection_sock::~connection_sock() {
+  // Prevent double close
+  if (this->fd == -1)
+    return;
+
+  close(fd);
   this->fd = -1;
   return;
 }

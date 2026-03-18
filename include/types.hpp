@@ -26,7 +26,7 @@ class connection_sock {
     connection_sock(connection_sock&& other);
     connection_sock& operator=(connection_sock&& other);
 
-    static std::expected<connection_sock, std::error_code> create(ip_addr addr);
+    static std::expected<connection_sock, std::error_code> create();
     static connection_sock from_fd(int fd);
     int get_fd();
     std::expected<size_t, std::error_code> recv(std::span<char> buff);

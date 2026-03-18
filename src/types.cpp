@@ -39,12 +39,12 @@ int connection_sock::get_fd() {
   return this->fd;
 }
 
-std::expected<connection_sock, std::error_code> connection_sock::create(ip_addr addr) {
-  int sock_fd = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
+// TODO change addr name
+std::expected<connection_sock, std::error_code> connection_sock::create() {
+  int sock_fd = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_IP));
   if (sock_fd == -1) {
     return std::unexpected(std::error_code(errno, std::system_category()));
   }
-
   return connection_sock{sock_fd};
 }
 

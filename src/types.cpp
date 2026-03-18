@@ -1,6 +1,6 @@
 #include "types.hpp"
-#include <linux/netlink.h>
 #include <net/ethernet.h>
+#include <arpa/inet.h>
 #include <sys/socket.h>
 #include <expected>
 #include <stdexcept>
@@ -40,15 +40,12 @@ int connection_sock::get_fd() {
   return this->fd;
 }
 
-std::expected<connection_sock, std::error_code> connection_sock::create(ip_addr addr) {
-  int sock_fd = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
+// TODO change addr name
+std::expected<connection_sock, std::error_code> connection_sock::create() {
+  int sock_fd = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_IP));
   if (sock_fd == -1) {
     return std::unexpected(std::error_code(errno, std::system_category()));
   }
-
-  int netlink_fd = socket(AF_NETLINK, SOCK_RAW, NETLINK_NETFILTER);
-
-  // int ret = setsockopt(sock_fd, SOL_SOCKET, SO_ATTACH_FILTER, &bpf, sizeof(bpf));
   return connection_sock{sock_fd};
 }
 

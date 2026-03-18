@@ -1,5 +1,6 @@
 #include "types.hpp"
 #include <net/ethernet.h>
+#include <arpa/inet.h>
 #include <sys/socket.h>
 #include <expected>
 #include <stdexcept>

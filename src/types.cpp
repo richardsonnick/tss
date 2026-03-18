@@ -1,5 +1,4 @@
 #include "types.hpp"
-#include <linux/netlink.h>
 #include <net/ethernet.h>
 #include <sys/socket.h>
 #include <expected>
@@ -46,9 +45,6 @@ std::expected<connection_sock, std::error_code> connection_sock::create(ip_addr 
     return std::unexpected(std::error_code(errno, std::system_category()));
   }
 
-  int netlink_fd = socket(AF_NETLINK, SOCK_RAW, NETLINK_NETFILTER);
-
-  // int ret = setsockopt(sock_fd, SOL_SOCKET, SO_ATTACH_FILTER, &bpf, sizeof(bpf));
   return connection_sock{sock_fd};
 }
 
